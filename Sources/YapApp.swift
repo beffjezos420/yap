@@ -28,6 +28,10 @@ struct YapApp: App {
                 app.toggleRecording()
             }
             Divider()
+            if !isRecording {
+                Button("Copy Last Transcript") { app.copyLastTranscript() }
+                    .disabled(app.lastTranscriptText == nil)
+            }
             Button("Open Yap…") { app.openMain(page: .settings) }
             Button("Recording History…") { app.openMain(page: .history) }
             Divider()

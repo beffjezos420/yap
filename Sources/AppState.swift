@@ -224,6 +224,18 @@ final class AppState {
         Task { await coordinator.toggle() }
     }
 
+    /// The most recent transcript, or nil when nothing has been dictated yet.
+    var lastTranscriptText: String? {
+        history.mostRecent()?.text
+    }
+
+    /// Re-copies the last transcript without opening the History window.
+    func copyLastTranscript() {
+        guard let text = lastTranscriptText else { return }
+        NSPasteboard.general.clearContents()
+        NSPasteboard.general.setString(text, forType: .string)
+    }
+
     /// Manual restart escape hatch. Never runs mid-dictation — that would throw
     /// away audio the user already spoke.
     func restartApp() {
