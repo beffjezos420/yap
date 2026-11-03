@@ -7,6 +7,14 @@ protocol HistoryStoring: AnyObject {
     func save(text: String, duration: Double?, device: String?)
 }
 
+extension HistoryStoring {
+    /// The latest saved transcript, for the menu bar's quick copy. Optional so
+    /// test fakes stay unchanged.
+    func mostRecent() -> Transcript? {
+        (self as? HistoryStore)?.recent(limit: 1).first
+    }
+}
+
 @MainActor
 final class HistoryStore: HistoryStoring {
     private let context: ModelContext
