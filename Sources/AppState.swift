@@ -236,6 +236,25 @@ final class AppState {
         NSPasteboard.general.setString(text, forType: .string)
     }
 
+    /// Whether anything has been dictated yet, for enable/disable in the menu bar.
+    var hasTranscripts: Bool {
+        history.hasAnyTranscript()
+    }
+
+    /// Wipes the saved transcript log from the menu bar. Confirms first and never
+    /// runs mid-dictation, so it can't throw away audio the user just spoke.
+    func clearRecordingHistory() {
+        guard coordinator.state == .idle else { return }
+        let alert = NSAlert()
+        alert.messageText = "Clear recording history?"
+        alert.informativeText = "This permanently deletes all saved transcripts."
+        alert.alertStyle = .warning
+        alert.addButton(withTitle: "Clear")
+        alert.addButton(withTitle: "Cancel")
+        guard alert.runModal() == .alertFirstButtonReturn else { return }
+        history.clearAll()
+    }
+
     /// Manual restart escape hatch. Never runs mid-dictation — that would throw
     /// away audio the user already spoke.
     func restartApp() {
