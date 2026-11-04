@@ -13,6 +13,12 @@ extension HistoryStoring {
     func mostRecent() -> Transcript? {
         (self as? HistoryStore)?.recent(limit: 1).first
     }
+
+    /// Whether any transcript has been recorded, so menu-bar actions can enable
+    /// themselves. Optional so test fakes stay unchanged.
+    func hasAnyTranscript() -> Bool {
+        (self as? HistoryStore)?.recent(limit: 1).isEmpty == false
+    }
 }
 
 @MainActor
