@@ -236,6 +236,15 @@ final class AppState {
         NSPasteboard.general.setString(text, forType: .string)
     }
 
+    /// Copies the whole saved transcript log, newest first, joined with blank
+    /// lines — the same ordering the History window shows.
+    func copyAllTranscripts() {
+        let text = history.allTranscripts().map(\.text).joined(separator: "\n\n")
+        guard !text.isEmpty else { return }
+        NSPasteboard.general.clearContents()
+        NSPasteboard.general.setString(text, forType: .string)
+    }
+
     /// Whether anything has been dictated yet, for enable/disable in the menu bar.
     var hasTranscripts: Bool {
         history.hasAnyTranscript()

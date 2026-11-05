@@ -19,6 +19,11 @@ extension HistoryStoring {
     func hasAnyTranscript() -> Bool {
         (self as? HistoryStore)?.recent(limit: 1).isEmpty == false
     }
+
+    /// Every saved transcript, newest first. Optional so test fakes stay unchanged.
+    func allTranscripts() -> [Transcript] {
+        (self as? HistoryStore)?.recent() ?? []
+    }
 }
 
 @MainActor

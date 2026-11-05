@@ -31,6 +31,8 @@ struct YapApp: App {
             if !isRecording {
                 Button("Copy Last Transcript") { app.copyLastTranscript() }
                     .disabled(app.lastTranscriptText == nil)
+                Button("Copy All Transcripts…") { app.copyAllTranscripts() }
+                    .disabled(!app.hasTranscripts)
                 Button("Clear Recording History…") { app.clearRecordingHistory() }
                     .disabled(!app.hasTranscripts)
             }
