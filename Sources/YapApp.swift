@@ -37,7 +37,7 @@ struct YapApp: App {
                     .disabled(!app.hasTranscripts)
             }
             Button("Open Yap…") { app.openMain(page: .settings) }
-            Button("Recording History…") { app.openMain(page: .history) }
+            Button(app.recordingHistoryLabel) { app.openMain(page: .history) }
             Divider()
             Button("About Yap") { app.openAbout() }
             Button("Quit Yap") { NSApplication.shared.terminate(nil) }

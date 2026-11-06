@@ -250,6 +250,17 @@ final class AppState {
         history.hasAnyTranscript()
     }
 
+    /// How many transcripts have been saved, for the menu bar label.
+    var transcriptCount: Int {
+        history.allTranscripts().count
+    }
+
+    /// Label for the "Recording History" menu item, with a count badge.
+    var recordingHistoryLabel: String {
+        let count = transcriptCount
+        count > 0 ? "Recording History (\(count))…" : "Recording History…"
+    }
+
     /// Wipes the saved transcript log from the menu bar. Confirms first and never
     /// runs mid-dictation, so it can't throw away audio the user just spoke.
     func clearRecordingHistory() {
